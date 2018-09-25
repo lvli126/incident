@@ -1,6 +1,6 @@
 import tables
 import matplotlib.pyplot as plt
-from pandas import Series,DataFrame
+from pandas import DataFrame
 import pandas as pd
 import numpy as np
 
