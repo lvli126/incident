@@ -20,6 +20,6 @@ with open(DEFAULT_MATERIAL_FILE, "w") as f:
     range_material_phantomD1.to_csv(f, header=False, index=False, sep='\t', mode='a')
     range_material_phantomD2.to_csv(f, header=False, index=False, sep='\t', mode='a')
 with open(DEFAULT_ACTIVITY_FILE,'w') as f:
-    activity_range_phantomD.to_csv(f, header=False, index=False, sep='\t', mode='a')
+    activity_range_phantomD.to_csv('/home/lvli/Documents/incident/derenzo_trymac/activity_range_phantomD.dat', header=False, index=False, sep='\t', mode='a')
 
 
