@@ -1,0 +1,42 @@
+analysis: {source: result.csv, subcommand: gamma_edep, target: result.h5}
+clean:
+  is_slurm_outputs: false
+  is_subdirectories: true
+  root_files: []
+dryrun: false
+init:
+  broadcast:
+    no_ext: false
+    targets: [main.mac,Verbose.mac,phantomD.bin,header_phantomD.h33]
+  external:
+  - {source: GateMaterials.db}
+  - {source: Materials.xml}
+  - {source: Surfaces.xml}
+  - {source: Hits2CSV.C}
+  # - {source: /home/derenzo_trymac/pygate/GateMaterials.db}
+  # - {source: /home/derenzo_trymac/pygate/Materials.xml}
+  # - {source: /home/derenzo_trymac/pygate/Surfaces.xml}
+  # - {source: /home/derenzo_trymac/pygate/Hits2CSV.C}
+  shell:
+    post_run:
+      gate_version: '7.2'
+      partition: cpu
+      shell_type: bash
+      target: post.sh
+      task:
+      - {method: hadd, target: result.root, task_name: merge}
+      - {root_c_file: Hits2CSV.C, target: result.root, task_name: root_analysis}
+    run:
+      gate_version: '7.2'
+      partition: cpu
+      shell_type: bash
+      target: run.sh
+      task:
+      - {target: main.mac, task_name: gate_simulation}
+nb_split: 10
+sub_format: sub.{}
+sub_patterns: [sub*]
+sub_prefix: sub
+submit:
+  broadcast: [run.sh]
+  single: [post.sh]

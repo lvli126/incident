@@ -156,16 +156,20 @@
 #                                                                 #
 #-------------------oooooOOOOO00000OOOOOooooo---------------------#
 
-/control/execute         VoxelizedPhantom.mac
-#/gate/world/daughters/name phantom
-#/gate/world/daughters/insert cylinder
-#/gate/phantom/setMaterial Air
-#/gate/phantom/vis/forceWireframe
-#/gate/phantom/vis/setColor green
-#/gate/phantom/geometry/setRmax  9.5  cm
-#/gate/phantom/geometry/setRmin   0 mm
-#/gate/phantom/geometry/setHeight 4 cm
-#/gate/phantom/attachPhantomSD
+#/control/execute         VoxelizedPhantom.mac
+/gate/world/daughters/name phantom
+/gate/world/daughters/insert ImageRegularParametrisedVolume
+/gate/phantom/geometry/SetImage header_phantom.h33
+/gate/phantom/geometry/setRangeToMaterialFile range_material_phantom.dat
+
+/gate/phantom/placement/setTranslation  0. 0. 0. mm
+/gate/phantom/placement/setRotationAxis 1 0 0
+/gate/phantom/placement/setRotationAngle 0 deg
+/gate/phantom/attachPhantomSD
+
+#/gate/phantom/setSkipEqualMaterials                      0
+#/gate/phantom/setFictitiousEnergy                       111. keV
+#/gate/phantom/setGammaDiscardEnergy                     0.1 keV
 
 
 
@@ -297,7 +301,7 @@
 
 #       S E T U P  - R O O T  F I L E
 /gate/output/root/enable
-/gate/output/root/setFileName derenzo_air1
+/gate/output/root/setFileName result
 /gate/output/root/setRootSinglesAdderFlag 0
 /gate/output/root/setRootSinglesReadoutFlag 0
 /gate/output/root/setRootHitFlag 0
@@ -361,7 +365,7 @@
 /gate/source/voxel_brain/interfileReader/translator/insert range
 /gate/source/voxel_brain/interfileReader/rangeTranslator/readTable activity_range_phantomD.dat
 /gate/source/voxel_brain/interfileReader/rangeTranslator/describe 1
-/gate/source/voxel_brain/interfileReader/readFile header_phantomD.h33
+/gate/source/voxel_brain/interfileReader/readFile header_phantom.h33
 /gate/source/voxel_brain/setPosition   -94.2 -94.2 -15 mm
 
 /gate/source/voxel_brain/setType backtoback
