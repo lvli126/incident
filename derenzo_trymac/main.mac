@@ -366,7 +366,7 @@
 /gate/source/voxel_brain/interfileReader/rangeTranslator/readTable activity_range_phantomD.dat
 /gate/source/voxel_brain/interfileReader/rangeTranslator/describe 1
 /gate/source/voxel_brain/interfileReader/readFile header_phantomD.h33
-/gate/source/voxel_brain/setPosition   -94.2 -94.2 -15 mm
+/gate/source/voxel_brain/setPosition   0 0 0 mm
 
 /gate/source/voxel_brain/setType backtoback
 /gate/source/voxel_brain/gps/particle gamma
@@ -381,7 +381,7 @@
 
 /gate/application/setTimeSlice    10  ms
 /gate/application/setTimeStart     0.   ms
-/gate/application/setTimeStop     10  ms
+/gate/application/setTimeStop     2  s
 
 #
 # LET'S RUN THE SIMULATION!

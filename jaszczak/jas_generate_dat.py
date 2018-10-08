@@ -31,3 +31,5 @@ with open(DEFAULT_MATERIAL_FILE, "w") as f1:
 with open(DEFAULT_ACTIVITY_FILE,'w') as f2:
     activity_range_phantomD1.to_csv(f2, header=False, index=False, sep='\t', mode='a')
     activity_range_phantomD2.to_csv(f2, header=False, index=False, sep='\t', mode='a')
+
+    

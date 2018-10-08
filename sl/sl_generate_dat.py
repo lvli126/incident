@@ -1,6 +1,7 @@
 import tables
 import numpy as np
 from pandas import DataFrame
+import sys
 
 DEFAULT_MATERIAL_FILE = '/home/lvli/Documents/incident/sl/range_material_phantom.dat'
 DEFAULT_ACTIVITY_FILE = '/home/lvli/Documents/incident/sl/activity_range_phantom.dat'
@@ -12,7 +13,8 @@ def rescale(input_array, scale=255):
     return input_array/scale
 
 f = tables.open_file('/home/lvli/S_1.h5')
-intensity, shepplogan= f.root.sheppLogans[3]
+# print(int(sys.argv[0]), type(int(sys.argv[0])))
+intensity, shepplogan= f.root.sheppLogans[int(sys.argv[1])]
 intensity = rescale(trim(intensity,-1))#normalization
 shepplogan = rescale(shepplogan)
 shepplogan.tofile(DEFAULT_PHANTOM_FLIE)

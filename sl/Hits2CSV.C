@@ -1,13 +1,14 @@
+#include <stdio.h>
 #include <fstream>
 #include <iomanip>
-#include <stdio.h>
+
 {
    gROOT->Reset();
-   TFile f("optical.root");
+   TFile f("result.root");
 
    //TTree *Coincidences = (TTree*)gDirectory->Get("Coincidences");
    TTree *Hits = (TTree*)gDirectory->Get("Hits");
-   std::ofstream out("HitsPara.CSV");
+   std::ofstream out("hits.csv");
    //TTree *Singles = (TTree*)gDirectory->Get("Singles");
    //TTree *delay = (TTree*)gDirectory->Get("delay";
 
@@ -29,6 +30,13 @@
    Float_t         globalPosY;  
    Float_t         globalPosZ;
    Float_t         energy;
+   Float_t         sourcePosX;
+   Float_t         sourcePosY;
+   Float_t         sourcePosZ;
+   Float_t         momX;
+   Float_t         momY;
+   Float_t         momZ;
+
 
 
    
@@ -44,6 +52,12 @@
    Hits->SetBranchAddress("posX", &globalPosX);
    Hits->SetBranchAddress("posY", &globalPosY);
    Hits->SetBranchAddress("posZ", &globalPosZ);
+   Hits->SetBranchAddress("sourcePosX", &sourcePosX);
+   Hits->SetBranchAddress("sourcePosY", &sourcePosY);
+   Hits->SetBranchAddress("sourcePosZ", &sourcePosZ);
+   Hits->SetBranchAddress("momDirX", &momX);
+   Hits->SetBranchAddress("momDirY", &momY);
+   Hits->SetBranchAddress("momDirZ", &momZ);
    Hits->SetBranchAddress("nCrystalCompton", &nCompton);
    Hits->SetBranchAddress("processName", &proName);
    Hits->SetBranchAddress("PDGEncoding", &particalID);
@@ -54,15 +68,11 @@
 //
 // Loop for each event in the TTree Coincidences
 //
-   out << "runID eventID photonID trackID processName x y z energy nCompton particalID" << std::endl; 
+   out << "runID,eventID,photonID,trackID,processName,x,y,z,srcX,srcY,srcZ,momX,momY,momZ,energy,nCompton,particalID" << std::endl; 
    for (Int_t i=0; i<nentries;i++) {
       nbytes += Hits->GetEntry(i);
-      if(out.is_open())
-      {
-          out<<setw(5)<<runID<<setw(10)<<eventID<<setw(10)<<photonID<<setw(10)<<trackID<<setw(30)<<proName<<setw(20)<<globalPosX<<setw(20)<<globalPosY<<setw(20)<<globalPosZ<<setw(20)<<energy<<setw(5)<<nCompton<<setw(5)<<particalID<<std::endl;
-      }
+      out<<runID<<","<<eventID<<","<<photonID<<","<<trackID<<","<<proName<<","<<globalPosX<<","<<globalPosY<<","<<globalPosZ<<","<<sourcePosX<<","<<sourcePosY<<","<<sourcePosZ<<","<<momX<<","<<momY<<","<<momZ<<","<<energy<<","<<nCompton<<","<<particalID<<std::endl;
    }
    out.close();
    
-
 }	

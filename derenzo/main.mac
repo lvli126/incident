@@ -159,8 +159,8 @@
 #/control/execute         VoxelizedPhantom.mac
 /gate/world/daughters/name phantom
 /gate/world/daughters/insert ImageRegularParametrisedVolume
-/gate/phantom/geometry/SetImage header_phantom.h33
-/gate/phantom/geometry/setRangeToMaterialFile range_material_phantom.dat
+/gate/phantom/geometry/SetImage header_phantomD.h33
+/gate/phantom/geometry/setRangeToMaterialFile range_material_phantomD.dat
 
 /gate/phantom/placement/setTranslation  0. 0. 0. mm
 /gate/phantom/placement/setRotationAxis 1 0 0
@@ -365,7 +365,7 @@
 /gate/source/voxel_brain/interfileReader/translator/insert range
 /gate/source/voxel_brain/interfileReader/rangeTranslator/readTable activity_range_phantomD.dat
 /gate/source/voxel_brain/interfileReader/rangeTranslator/describe 1
-/gate/source/voxel_brain/interfileReader/readFile header_phantom.h33
+/gate/source/voxel_brain/interfileReader/readFile header_phantomD.h33
 /gate/source/voxel_brain/setPosition   0 0 0 mm
 
 /gate/source/voxel_brain/setType backtoback
@@ -381,12 +381,13 @@
 
 /gate/application/setTimeSlice    10  ms
 /gate/application/setTimeStart     0.   ms
-/gate/application/setTimeStop     50  ms
+/gate/application/setTimeStop     2  s
 
 #
 # LET'S RUN THE SIMULATION!
 #
-/gate/application/startDAQ
+/gate/application/setTotalNumberOfPrimaries 10000
+/gate/application/start
 
 
 
